@@ -15,12 +15,17 @@
     font-weight: 600;
 }
 
-.list_item a{
+.list_item a {
     color: #000;
     text-decoration: none;
 }
 
 .list_item a:hover{
-    color: #555;
+    color: rgb(225, 0, 0);
+    text-decoration: underline;
+}
+
+.list_item a.active{
+    color: rgb(225, 0, 0);
     text-decoration: underline;
 }
