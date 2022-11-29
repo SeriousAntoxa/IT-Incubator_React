@@ -1,0 +1,33 @@
+.desc {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 15px 10px 10px;
+}
+
+.desc_logo {
+    border: solid 2px;
+    border-color: rgb(0, 0, 0);
+    width: 90px;
+    height: 90px;
+}
+
+.desc_logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.desc_data {
+    margin-left: 15px;
+    font-weight: 600;
+}
+
+.desc_name {
+    font-size: 1.3rem;
+}
+
+.desc_info {
+    font-size: 1.2rem;
+    padding-top: 10px;
+}
