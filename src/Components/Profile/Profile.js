@@ -1,18 +1,14 @@
 import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
-import HeadImage from "./HeadImage/HeadImage";
-import Description from "./Description/Description";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
   return (
     <div className={s.profile}>
-      <div className={s.profile_image}>
-        <HeadImage />
+      <div className={s.profile_ProfileInfo}>
+        <ProfileInfo />
       </div>
-      <div className={s.profile_desc}>
-        <Description />
-      </div>
-      <div className={s.profile_posts}>
+      <div className={s.profile_MyPosts}>
         <MyPosts />
       </div>
     </div>
