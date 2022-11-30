@@ -6,11 +6,9 @@ const Dialog = (props) => {
   const activeLink = (navData) => (navData.isActive ? s.active : "");
 
   return (
-    <li className={s.dialog}>
       <NavLink to={path} className={activeLink}>
         {props.name}
       </NavLink>
-    </li>
   );
 };
 

@@ -3,37 +3,36 @@ import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
 
 const Dialogs = () => {
+  const dialogs = [
+    { id: "1", name: "Valera" },
+    { id: "2", name: "Nikita" },
+    { id: "3", name: "Elena" },
+    { id: "4", name: "Maria" },
+    { id: "5", name: "Andrei" },
+  ];
 
-    const dialogsData = [
-        {id: "1", name: "Valera"},
-        {id: "2", name: "Nikita"},
-        {id: "3", name: "Elena"},
-        {id: "4", name: "Maria"},
-        {id: "5", name: "Andrei"}
-    ]
+  const dialogsData = dialogs.map((d) => {
+  return (
+    <li className={s.dialog}>
+      <Dialog id={d.id} name={d.name} />
+    </li>
+  )
+});
 
-    const messageData = [
-        {id: "1", message: "Hello"},
-        {id: "2", message: "Why are you?"},
-        {id: "3", message: "Thanks, and you?"}
-    ]
+  const messages = [
+    { id: "1", message: "Hello" },
+    { id: "2", message: "Why are you?" },
+    { id: "3", message: "Thanks, and you?" },
+  ];
+
+  const messageData = messages.map((m) => <Message message={m.message} />);
 
   return (
     <div>
       <h1>Dialogs</h1>
       <div className={s.block}>
-        <ul className={s.dialogs}>
-          <Dialog id={dialogsData[0].id} name={dialogsData[0].name} />
-          <Dialog id={dialogsData[1].id} name={dialogsData[1].name} />
-          <Dialog id={dialogsData[2].id} name={dialogsData[2].name} />
-          <Dialog id={dialogsData[3].id} name={dialogsData[3].name} />
-          <Dialog id={dialogsData[4].id} name={dialogsData[4].name} />
-        </ul>
-        <div className={s.messages}>
-          <Message message={messageData[0].message} />
-          <Message message={messageData[1].message} />
-          <Message message={messageData[2].message} />
-        </div>
+        <ul className={s.dialogs}>{dialogsData}</ul>
+        <div className={s.messages}>{messageData}</div>
       </div>
     </div>
   );
