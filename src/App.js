@@ -8,7 +8,7 @@ import Music from "./Components/Music/Music";
 import SettingsC from "./Components/SettingsC/SettingsC";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className="wrapper">
@@ -16,8 +16,8 @@ const App = () => {
         <Nav />
         <main className="wrapper_content">
           <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/dialogs" element={<Dialogs />} />
+            <Route path="/profile" element={<Profile posts={props.posts} />} />
+            <Route path="/dialogs" element={<Dialogs dialogs={props.dialogs} messages={props.messages} />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<SettingsC />} />
