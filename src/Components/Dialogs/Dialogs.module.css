@@ -10,11 +10,6 @@
     font-weight: 600;
 }
 
-.messages {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
 .dialog {
     padding: 5px 0;
 }
@@ -30,4 +25,10 @@
 
 .dialog a.active {
     color: rgb(225, 0, 0);
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }

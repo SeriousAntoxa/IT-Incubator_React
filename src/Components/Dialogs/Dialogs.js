@@ -3,16 +3,17 @@ import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
 
 const Dialogs = (props) => {
-
   const dialogsData = props.state.dialogs.map((d) => {
-  return (
-    <li className={s.dialog}>
-      <Dialog id={d.id} name={d.name} />
-    </li>
-  )
-});
+    return (
+      <li className={s.dialog}>
+        <Dialog id={d.id} name={d.name} />
+      </li>
+    );
+  });
 
-  const messageData = props.state.messages.map((m) => <Message message={m.message} />);
+  const messageData = props.state.messages.map((m) => {
+    return <Message state={m} />;
+  });
 
   return (
     <div>

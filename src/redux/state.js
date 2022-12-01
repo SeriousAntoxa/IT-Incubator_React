@@ -8,9 +8,12 @@ let state = {
             { id: "5", name: "Andrei" }
           ],
         messages: [
-            { id: "1", message: "Hello" },
-            { id: "2", message: "Why are you?" },
-            { id: "3", message: "Thanks, and you?" }
+            { id: "1", message: "Hello", who: 0 },
+            { id: "1", message: "Hy", who: 1 },
+            { id: "2", message: "Why are you?", who: 0 },
+            { id: "3", message: "Thanks, and you?", who: 1 },
+            { id: "3", message: "I'am finny!)", who: 0 },
+            { id: "3", message: "Where are you from?", who: 0 }
           ]
     },
     profilePage: {
@@ -22,7 +25,11 @@ let state = {
           ]
     },
     sidebar: {
-        friends: []
+        friends: [
+            { id: "1", name: "Elena" },
+            { id: "2", name: "Maria" },
+            { id: "3", name: "Andrei" }
+        ]
     }
 }
 
