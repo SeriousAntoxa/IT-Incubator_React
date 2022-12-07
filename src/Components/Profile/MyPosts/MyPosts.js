@@ -1,29 +1,40 @@
-import React from "react"
+import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
 
-    const postElement = React.createRef()
+    console.log(props)
 
-const addPost = () => {
-    props.addPost(postElement.current.value)
-}
+  const postElement = React.createRef();
 
-  const postsData = props.posts.map(
-    (m) => <Post message={m.message} like={m.likeCounter}/>
-  );
+  const addPost = () => {
+    props.addPost();
+  };
+
+  const updateTextPost = () => {
+    props.updateTextPost(postElement.current.value);
+  };
+
+  const postsData = props.state.posts.map((m) => (
+    <Post message={m.message} like={m.likeCounter} />
+  ));
 
   return (
     <div className={s.myPost}>
       <p>My posts</p>
       <div className={s.myPost_form}>
-        <textarea ref={ postElement } className={s.form_textarea}></textarea>
-        <button onClick={ addPost } className={s.form_btn}>Submit</button>
+        <textarea
+          onChange={updateTextPost}
+          ref={postElement}
+          className={s.form_textarea}
+          value={props.state.newPost}
+        />
+        <button onClick={addPost} className={s.form_btn}>
+          Submit
+        </button>
       </div>
-      <div>
-        { postsData }
-      </div>
+      <div>{postsData}</div>
     </div>
   );
 };

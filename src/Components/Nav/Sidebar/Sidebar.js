@@ -9,7 +9,7 @@ const Sidebar = (props) => {
         <p>Friends</p>
       </div>
       <div className={s.sidebar_block}>
-        <SidebarFriends state={props.state.friends} />
+        <SidebarFriends friends={props.state.friends} />
       </div>
     </aside>
   );
