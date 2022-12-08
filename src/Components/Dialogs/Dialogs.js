@@ -4,7 +4,8 @@ import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
 
 const Dialogs = (props) => {
-  const dialogsData = props.store.state.dialogsData.dialogs.map((d) => {
+
+  const dialogsData = props.state.dialogs.map((d) => {
     return (
       <li className={s.dialog}>
         <Dialog id={d.id} name={d.name} />
@@ -12,18 +13,18 @@ const Dialogs = (props) => {
     );
   });
 
-  const messageData = props.store.state.dialogsData.messages.map((m) => {
+  const messageData = props.state.messages.map((m) => {
     return <Message state={m} />;
   });
 
   const messageElement = React.createRef();
   
   const sendMessage = () => {
-    props.store.sendMessage()
+    props.sendMessage()
   };
 
   const updateTextMessage = () => {
-    props.store.updateTextMessage(messageElement.current.value)
+    props.updateTextMessage(messageElement.current.value)
   };
 
   return (
@@ -39,7 +40,7 @@ const Dialogs = (props) => {
               onChange={updateTextMessage}
               ref={messageElement}
               className={s.form_textarea}
-              value={props.state.store.getNewMessageValue()}
+              value={props.state.newMessage}
             />
             <button onClick={sendMessage} className={s.form_btn}>
               Submit
