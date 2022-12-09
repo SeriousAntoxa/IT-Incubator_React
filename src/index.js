@@ -9,7 +9,7 @@ const renderTree = (state) => {
 
     root.render(
       <React.StrictMode>
-        <App state={state} updateTextPost={store.updateTextPost.bind(store)} sendMessage={store.sendMessage.bind(store)} addPost={store.addPost.bind(store)} updateTextMessage={store.updateTextMessage.bind(store)}/>
+        <App state={state} dispatch={store.dispatch.bind(store)}/>
       </React.StrictMode>
     );
 

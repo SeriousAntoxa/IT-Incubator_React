@@ -1,3 +1,19 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_TEXT_POST = "UPDATE-TEXT-POST";
+const SEND_MESSAGE = "SEND-MESSAGE";
+const UPDATE_TEXT_MESSAGE = "UPDATE-TEXT-MESSAGE";
+
+export let addPostActionCreator = () => ({ type: ADD_POST });
+export let updateTextPostActionCreator = (message) => ({
+  type: UPDATE_TEXT_POST,
+  postMessage: message,
+});
+export let sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+export let updateTextMessageActionCreator = (message) => ({
+  type: UPDATE_TEXT_MESSAGE,
+  dialogsMessage: message,
+});
+
 let store = {
   _state: {
     dialogsPage: {
@@ -37,43 +53,39 @@ let store = {
   },
 
   getState() {
-    return this._state
+    return this._state;
   },
 
-  addPost() {
-    let postData = {
-      id: "5",
-      message: this._state.profilePage.newPost,
-      likeCounter: 0,
-    };
-    this._state.profilePage.posts.push(postData);
-    this._state.profilePage.newPost = "";
-    this._renderTree(this._state);
-  },
-
-  updateTextPost(postMessage) {
-    this._state.profilePage.newPost = postMessage;
-    this._renderTree(this._state);
-  },
-
-  sendMessage() {
-    let messageData = {
-      id: "5",
-      message: this._state.dialogsPage.newMessage,
-      who: 1,
-    };
-    this._state.dialogsPage.messages.push(messageData);
-    this._state.dialogsPage.newMessage = "";
-    this._renderTree(this._state);
-  },
-
-  updateTextMessage(dialogMessage) {
-    this._state.dialogsPage.newMessage = dialogMessage;
-    this._renderTree(this._state);
+  dispatch(action) {
+    if (action.type === ADD_POST) {
+      let postData = {
+        id: "5",
+        message: this._state.profilePage.newPost,
+        likeCounter: 0,
+      };
+      this._state.profilePage.posts.push(postData);
+      this._state.profilePage.newPost = "";
+      this._renderTree(this._state);
+    } else if (action.type === UPDATE_TEXT_POST) {
+      this._state.profilePage.newPost = action.postMessage;
+      this._renderTree(this._state);
+    } else if (action.type === SEND_MESSAGE) {
+      let messageData = {
+        id: "5",
+        message: this._state.dialogsPage.newMessage,
+        who: 1,
+      };
+      this._state.dialogsPage.messages.push(messageData);
+      this._state.dialogsPage.newMessage = "";
+      this._renderTree(this._state);
+    } else if (action.type === UPDATE_TEXT_MESSAGE) {
+      this._state.dialogsPage.newMessage = action.dialogsMessage;
+      this._renderTree(this._state);
+    }
   },
 
   subscribe(observe) {
-    this._renderTree = observe
+    this._renderTree = observe;
   },
 
   _renderTree() {},
