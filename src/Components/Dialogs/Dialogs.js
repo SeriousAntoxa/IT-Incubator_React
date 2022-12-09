@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
-import {sendMessageActionCreator, updateTextMessageActionCreator} from "./../../redux/state"
+import {sendMessageActionCreator, updateTextMessageActionCreator} from "../../redux/dialogs-reducer"
 
 const Dialogs = (props) => {
 
@@ -17,15 +17,13 @@ const Dialogs = (props) => {
   const messageData = props.state.messages.map((m) => {
     return <Message state={m} />;
   });
-
-  const messageElement = React.createRef();
   
   const sendMessage = () => {
     props.dispatch(sendMessageActionCreator())
   };
 
-  const updateTextMessage = () => {
-    let value = messageElement.current.value
+  const updateTextMessage = (e) => {
+    let value = e.target.value
     props.dispatch(updateTextMessageActionCreator(value))
   };
 
@@ -40,7 +38,6 @@ const Dialogs = (props) => {
             <p>Отправить сообщение</p>
             <textarea
               onChange={updateTextMessage}
-              ref={messageElement}
               className={s.form_textarea}
               value={props.state.newMessage}
             />
