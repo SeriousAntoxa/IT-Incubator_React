@@ -3,7 +3,7 @@
     margin-right: 10px;
     grid-area: nav;
     background-color: #33CDC7;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 }
 
 .nav_list {
