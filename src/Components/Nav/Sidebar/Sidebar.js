@@ -1,7 +1,7 @@
 import s from "./Sidebar.module.css";
-import SidebarFriends from "./SidebarFriends/SidebarFriends";
+import SidebarFriendsContainer from "./SidebarFriends/SidebarFriendsContainer";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
 
   return (
     <aside className={s.nav_sidebar}>
@@ -9,7 +9,7 @@ const Sidebar = (props) => {
         <p>Friends</p>
       </div>
       <div className={s.sidebar_block}>
-        <SidebarFriends friends={props.state.friends} />
+        <SidebarFriendsContainer />
       </div>
     </aside>
   );

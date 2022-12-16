@@ -2,11 +2,10 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
-import {sendMessageActionCreator, updateTextMessageActionCreator} from "../../redux/dialogs-reducer"
 
 const Dialogs = (props) => {
 
-  const dialogsData = props.state.dialogs.map((d) => {
+  const dialogsData = props.dialogsPage.dialogs.map((d) => {
     return (
       <li className={s.dialog}>
         <Dialog id={d.id} name={d.name} />
@@ -14,17 +13,17 @@ const Dialogs = (props) => {
     );
   });
 
-  const messageData = props.state.messages.map((m) => {
+  const messageData = props.dialogsPage.messages.map((m) => {
     return <Message state={m} />;
   });
   
   const sendMessage = () => {
-    props.dispatch(sendMessageActionCreator())
+    props.sendMessage()
   };
 
   const updateTextMessage = (e) => {
     let value = e.target.value
-    props.dispatch(updateTextMessageActionCreator(value))
+    props.updateTextMessage(value)
   };
 
   return (
@@ -33,13 +32,15 @@ const Dialogs = (props) => {
       <div className={s.block}>
         <ul className={s.dialogs}>{dialogsData}</ul>
         <div className={s.messages}>
-          <div className={s.messages_chat}>{messageData}</div>
+          <div className={s.messages_chat}>
+            {messageData}
+          </div>
           <div className={s.messages_form}>
             <p>Отправить сообщение</p>
             <textarea
               onChange={updateTextMessage}
               className={s.form_textarea}
-              value={props.state.newMessage}
+              value={props.dialogsPage.newMessage}
             />
             <button onClick={sendMessage} className={s.form_btn}>
               Submit
