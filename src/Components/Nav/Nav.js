@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import s from "./Nav.module.css";
 import Sidebar from "./Sidebar/Sidebar";
 
-const Nav = (props) => {
+const Nav = () => {
+
   const activeLink = (navData) => (navData.isActive ? s.active : "");
 
   return (
@@ -24,6 +25,11 @@ const Nav = (props) => {
           </NavLink>
         </li>
         <li className={s.list_item}>
+          <NavLink to="/users" className={activeLink}>
+            Users
+          </NavLink>
+        </li>
+        <li className={s.list_item}>
           <NavLink to="/music" className={activeLink}>
             Music
           </NavLink>
@@ -34,7 +40,7 @@ const Nav = (props) => {
           </NavLink>
         </li>
       </ul>
-      <Sidebar state={props.state} />
+      <Sidebar />
     </nav>
   );
 };
