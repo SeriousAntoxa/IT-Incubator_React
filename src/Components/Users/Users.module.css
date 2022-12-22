@@ -5,3 +5,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
 }
+
+.activeLink {
+    font-weight: 600;
+}
