@@ -3,12 +3,14 @@ import profileReducer from './profile-reducer'
 import dialogsReducer from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 import usersReducer from './users-reducer'
+import commonReducer from './common-reducer'
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    common: commonReducer
 })
 
 let store = createStore(reducers)
