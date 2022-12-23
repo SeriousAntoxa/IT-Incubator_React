@@ -1,6 +1,6 @@
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 
-export let toggleIsFetchingActionCreator = (isFetching) => {
+export let toggleIsFetching = (isFetching) => {
   return {
     type: TOGGLE_IS_FETCHING,
     isFetching,
@@ -19,7 +19,7 @@ const commonReducer = (state = initialState, action) => {
         isFetching: action.isFetching,
       };
     default: {
-      return state;
+      return { ...state };
     }
   }
 };

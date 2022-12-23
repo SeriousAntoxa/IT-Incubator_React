@@ -1,15 +1,15 @@
 import { connect } from "react-redux";
 import {
-  followActionCreator,
-  unfollowActionCreator,
-  setUsersActionCreator,
-  setTotalUsersActionCreator,
-  setCurrentPageActionCreator,
+  follow,
+  unfollow,
+  setUsers,
+  setTotalUsers,
+  setCurrentPage,
 } from "./../../redux/users-reducer";
 import Users from "./Users";
 import axios from "axios";
 import React from "react";
-import { toggleIsFetchingActionCreator } from "../../redux/common-reducer";
+import { toggleIsFetching } from "../../redux/common-reducer";
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true)
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+/*const mapDispatchToProps = (dispatch) => {
   return {
     follow: (userId) => {
       let action = followActionCreator(userId);
@@ -91,11 +91,18 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(action)
     }
   };
-};
+};*/
 
 const usersContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    follow,
+    unfollow,
+    setUsers,
+    setTotalUsers,
+    setCurrentPage,
+    toggleIsFetching
+  }
 )(UsersAPIComponent);
 
 export default usersContainer;

@@ -4,31 +4,31 @@ const SET_USERS = "SET-USERS"
 const SET_TOTAL_USERS = "SET-TOTAL-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 
-export let followActionCreator = (userId) => {
+export let follow = (userId) => {
     return {
         type: FOLLOW,
         userId: userId
     }
 }
-export let unfollowActionCreator = (userId) => {
+export let unfollow = (userId) => {
     return {
         type: UNFOLLOW,
         userId: userId
     }
 }
-export let setUsersActionCreator = (users) => {
+export let setUsers = (users) => {
     return {
         type: SET_USERS,
         users
     }
 }
-export let setTotalUsersActionCreator = (totalUsers) => {
+export let setTotalUsers = (totalUsers) => {
     return {
         type: SET_TOTAL_USERS,
         totalUsers
     }
 }
-export let setCurrentPageActionCreator = (currentPage) => {
+export let setCurrentPage = (currentPage) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage
@@ -92,7 +92,7 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         default:
-            return state
+            return { ...state }
     }
 }
 
