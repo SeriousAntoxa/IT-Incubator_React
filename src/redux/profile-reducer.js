@@ -1,21 +1,21 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_TEXT_POST = "UPDATE-TEXT-POST";
 
-export let addPostActionCreator = () => ({ type: ADD_POST });
-export let updateTextPostActionCreator = (message) => ({
+export let addPost = () => ({ type: ADD_POST });
+export let updateTextPost = (message) => ({
   type: UPDATE_TEXT_POST,
   postMessage: message,
 });
 
 let initialState = {
-    posts: [
-        { id: "1", message: "some text post 1", likeCounter: 1 },
-        { id: "2", message: "some text post 2", likeCounter: 21 },
-        { id: "3", message: "some text post 3", likeCounter: 3 },
-        { id: "4", message: "some text post 4", likeCounter: 6 },
-      ],
-      newPost: "",
-}
+  posts: [
+    { id: "1", message: "some text post 1", likeCounter: 1 },
+    { id: "2", message: "some text post 2", likeCounter: 21 },
+    { id: "3", message: "some text post 3", likeCounter: 3 },
+    { id: "4", message: "some text post 4", likeCounter: 6 },
+  ],
+  newPost: "",
+};
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,17 +28,17 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: [...state.posts, postData],
-        newPost: ""
+        newPost: "",
       };
     }
     case UPDATE_TEXT_POST: {
       return {
         ...state,
-        newPost: action.postMessage
+        newPost: action.postMessage,
       };
     }
     default:
-      return {...state};
+      return { ...state };
   }
 };
 
