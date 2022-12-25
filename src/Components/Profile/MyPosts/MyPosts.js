@@ -13,8 +13,8 @@ const MyPosts = (props) => {
     props.updateTextPost(value);
   };
 
-  const postsData = props.profilePage.posts.map((m) => (
-    <Post message={m.message} like={m.likeCounter} />
+  const postsData = props.profilePage.posts.map((m,i) => (
+    <Post key={i} message={m.message} like={m.likeCounter} />
   ));
 
   return (
