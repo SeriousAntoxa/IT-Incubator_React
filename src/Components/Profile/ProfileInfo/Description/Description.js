@@ -1,20 +1,28 @@
 import s from "./Description.module.css";
+import userLogo from "./../../../../assets/image/user.png";
 
-const Description = () => {
+const Description = (props) => {
   return (
     <div className={s.desc}>
       <div className={s.desc_logo}>
-        <img src="https://st4.depositphotos.com/7178380/29257/v/1600/depositphotos_292570898-stock-illustration-colibri-bird-logo-vector-illustration.jpg"></img>
+        <img
+          src={
+            props.profile.photos.small !== null
+              ? props.profile.photos.small
+              : userLogo
+          }
+          alt="userLogo"
+        ></img>
       </div>
       <div className={s.desc_data}>
         <div className={s.desc_name}>
-            <p>Podobed Anton</p>
+          <p>{props.profile.fullName}</p>
         </div>
         <div className={s.desc_info}>
-            <p>Data of Birth: 21 september</p>
-            <p>City: Mogilev</p>
-            <p>Education: MUFT`19</p>
-            <p>Web Site: Serious_Sam</p>
+          <p>Обо мне: {props.profile.aboutMe}</p>
+          <p>instagram: {props.profile.contacts.instagram}</p>
+          <p>github: {props.profile.contacts.github}</p>
+          <p>Информация о работе: {props.profile.lookingForAJobDescription}</p>
         </div>
       </div>
     </div>
