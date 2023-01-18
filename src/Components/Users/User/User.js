@@ -6,16 +6,19 @@ import { usersAPI } from "../../../api/api";
 
 let User = (props) => {
   let user = props.user;
-
   let follow = () => {
+    props.toggleIsFollowing(true, user.id)
     usersAPI.followUsers(user.id).then((userId) => {
       props.follow(userId);
-    });
+      props.toggleIsFollowing(false, user.id)
+    }); 
   };
 
   let unfollow = () => {
+    props.toggleIsFollowing(true, user.id)
     usersAPI.unfollowUsers(user.id).then((userId) => {
       props.unfollow(userId);
+      props.toggleIsFollowing(false, user.id)
     });
   };
 
@@ -32,11 +35,11 @@ let User = (props) => {
         </div>
         <div className={s.user_btn}>
           {user.followed ? (
-            <button className={s.btn} onClick={unfollow}>
+            <button disabled={props.isFollowing.some(id => id === user.id)} className={s.btn} onClick={unfollow}>
               Unfollow
             </button>
           ) : (
-            <button className={s.btn} onClick={follow}>
+            <button disabled={props.isFollowing.some(id => id === user.id)} className={s.btn} onClick={follow}>
               Follow
             </button>
           )}

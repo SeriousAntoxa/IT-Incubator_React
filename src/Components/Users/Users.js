@@ -5,7 +5,6 @@ import Preloader from "../common/Preloader";
 
 let Users = (props) => {
   let totalPages = Math.ceil(props.totalUsers / props.countUserOnPage);
-
   let pages = [];
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
@@ -43,6 +42,8 @@ let Users = (props) => {
               user={u}
               follow={props.follow}
               unfollow={props.unfollow}
+              isFollowing={props.isFollowing}
+              toggleIsFollowing={props.toggleIsFollowing}
             />
           );
         })}

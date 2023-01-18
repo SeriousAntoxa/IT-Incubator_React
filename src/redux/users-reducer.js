@@ -1,99 +1,115 @@
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_TOTAL_USERS = "SET-TOTAL-USERS"
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
+const FOLLOW = "FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET-USERS";
+const SET_TOTAL_USERS = "SET-TOTAL-USERS";
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+const TOGGLE_IS_FOLLOWING = "TOGGLE-IS-FOLLOWING";
 
 export let follow = (userId) => {
-    return {
-        type: FOLLOW,
-        userId: userId
-    }
-}
+  return {
+    type: FOLLOW,
+    userId: userId,
+  };
+};
 export let unfollow = (userId) => {
-    return {
-        type: UNFOLLOW,
-        userId: userId
-    }
-}
+  return {
+    type: UNFOLLOW,
+    userId: userId,
+  };
+};
 export let setUsers = (users) => {
-    return {
-        type: SET_USERS,
-        users
-    }
-}
+  return {
+    type: SET_USERS,
+    users,
+  };
+};
 export let setTotalUsers = (totalUsers) => {
-    return {
-        type: SET_TOTAL_USERS,
-        totalUsers
-    }
-}
+  return {
+    type: SET_TOTAL_USERS,
+    totalUsers,
+  };
+};
 export let setCurrentPage = (currentPage) => {
-    return {
-        type: SET_CURRENT_PAGE,
-        currentPage
-    }
-}
+  return {
+    type: SET_CURRENT_PAGE,
+    currentPage,
+  };
+};
+export let toggleIsFollowing = (isFetching, userId) => {
+  return {
+    type: TOGGLE_IS_FOLLOWING,
+    isFetching,
+    userId,
+  };
+};
 
 let initialState = {
-    users: [
-    ],
-    currentPage: 1,
-    totalUsers: 0,
-    countUserOnPage: 100
-}
+  users: [],
+  currentPage: 1,
+  totalUsers: 0,
+  countUserOnPage: 100,
+  isFollowing: [],
+};
 
 const usersReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case FOLLOW: {
+  switch (action.type) {
+    case FOLLOW: {
+      return {
+        ...state,
+        users: state.users.map((u) => {
+          if (u.id === action.userId) {
             return {
-                ...state,
-                users: state.users.map(u=> {
-                    if (u.id === action.userId) {
-                        return {
-                            ...u,
-                            followed: true
-                        }
-                    }
-                    return u
-                })
-            }
-        }
-        case UNFOLLOW: {
-            return {
-                ...state,
-                users: state.users.map(u=> {
-                    if (u.id === action.userId) {
-                        return {
-                            ...u,
-                            followed: false
-                        }
-                    }
-                    return u
-                })
-            }
-        }
-        case SET_USERS: {
-            return {
-                ...state,
-                users: [...action.users]
-            }
-        }
-        case SET_TOTAL_USERS: {
-            return {
-                ...state,
-                totalUsers: action.totalUsers
-            }
-        }
-        case SET_CURRENT_PAGE: {
-            return {
-                ...state,
-                currentPage: action.currentPage
-            }
-        }
-        default:
-            return { ...state }
+              ...u,
+              followed: true,
+            };
+          }
+          return u;
+        }),
+      };
     }
-}
+    case UNFOLLOW: {
+      return {
+        ...state,
+        users: state.users.map((u) => {
+          if (u.id === action.userId) {
+            return {
+              ...u,
+              followed: false,
+            };
+          }
+          return u;
+        }),
+      };
+    }
+    case SET_USERS: {
+      return {
+        ...state,
+        users: [...action.users],
+      };
+    }
+    case SET_TOTAL_USERS: {
+      return {
+        ...state,
+        totalUsers: action.totalUsers,
+      };
+    }
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    }
+    case TOGGLE_IS_FOLLOWING: {
+      return {
+        ...state,
+        isFollowing: action.isFetching
+          ? [...state.isFollowing, action.userId]
+          : state.isFollowing.filter((id) => id !== action.userId),
+      };
+    }
+    default:
+      return { ...state };
+  }
+};
 
-export default usersReducer
+export default usersReducer;
