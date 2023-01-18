@@ -9,9 +9,9 @@ const instants = axios.create({
 });
 
 export const usersAPI = {
-  getUsers(countUserOnPage, p = 1) {
+  getUsers(countUserOnPage, page) {
     return instants
-      .get(`users?page=${p}&count=${countUserOnPage}`)
+      .get(`users?page=${page}&count=${countUserOnPage}`)
       .then((response) => response.data);
   },
   followUsers(userId) {
@@ -38,7 +38,6 @@ export const authAPI = {
     auth() {
       return instants
         .get(`auth/me`)
-        .then((response) => response);
     },
 };
 
@@ -46,6 +45,5 @@ export const profileAPI = {
     getUser(userId) {
         return instants
           .get(`profile/${userId}`)
-          .then((response) => response);
       },
 }
