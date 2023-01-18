@@ -1,16 +1,8 @@
+import { profileAPI } from "./../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_TEXT_POST = "UPDATE-TEXT-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
-
-export let addPost = () => ({ type: ADD_POST });
-export let updateTextPost = (message) => ({
-  type: UPDATE_TEXT_POST,
-  postMessage: message,
-});
-export let setUserProfile = (profile) => ({
-    type: SET_USER_PROFILE,
-    profile,
-  });
 
 let initialState = {
   posts: [
@@ -20,7 +12,7 @@ let initialState = {
     { id: "4", message: "some text post 4", likeCounter: 6 },
   ],
   newPost: "",
-  profile: null
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -44,14 +36,34 @@ const profileReducer = (state = initialState, action) => {
       };
     }
     case SET_USER_PROFILE: {
-        return {
-          ...state,
-          profile: action.profile,
-        };
-      }
+      return {
+        ...state,
+        profile: action.profile,
+      };
+    }
     default:
       return { ...state };
   }
 };
 
 export default profileReducer;
+
+export let addPost = () => ({ type: ADD_POST });
+
+export let updateTextPost = (message) => ({
+  type: UPDATE_TEXT_POST,
+  postMessage: message,
+});
+
+export let setUserProfile = (profile) => ({
+  type: SET_USER_PROFILE,
+  profile,
+});
+
+export const getUser = (userId) => {
+  return (dispatch) => {
+    profileAPI.getUser(userId).then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+  };
+};
