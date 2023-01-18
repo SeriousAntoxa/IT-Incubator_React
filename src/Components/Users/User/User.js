@@ -1,17 +1,22 @@
 import React from "react";
 import s from "./User.module.css";
 import userLogo from "./../../../assets/image/user.png";
-import {NavLink} from "react-router-dom"
+import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../../api/api";
 
 let User = (props) => {
   let user = props.user;
 
   let follow = () => {
-    props.follow(user.id);
+    usersAPI.followUsers(user.id).then((userId) => {
+      props.follow(userId);
+    });
   };
 
   let unfollow = () => {
-    props.unfollow(user.id);
+    usersAPI.unfollowUsers(user.id).then((userId) => {
+      props.unfollow(userId);
+    });
   };
 
   return (

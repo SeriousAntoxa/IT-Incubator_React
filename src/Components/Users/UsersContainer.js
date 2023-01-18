@@ -7,34 +7,29 @@ import {
   setCurrentPage,
 } from "./../../redux/users-reducer";
 import Users from "./Users";
-import axios from "axios";
 import React from "react";
 import { toggleIsFetching } from "../../redux/common-reducer";
+import { usersAPI } from "../../api/api";
+
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(true)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.countUserOnPage}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsers(response.data.totalCount);
-        this.props.toggleIsFetching(false)
-      });
+    this.props.toggleIsFetching(true);
+
+    usersAPI.getUsers(this.props.countUserOnPage).then((data) => {
+      this.props.setUsers(data.items);
+      this.props.setTotalUsers(data.totalCount);
+      this.props.toggleIsFetching(false);
+    });
   }
 
   onPageChange = (p) => {
     this.props.setCurrentPage(p);
-    this.props.toggleIsFetching(true)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.countUserOnPage}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsers(response.data.totalCount);
-        this.props.toggleIsFetching(false)
+    this.props.toggleIsFetching(true);
+
+    usersAPI.getUsers(this.props.countUserOnPage, p).then((data) => {
+        this.props.setUsers(data.items);
+        this.props.setTotalUsers(data.totalCount);
+        this.props.toggleIsFetching(false);
       });
   };
 
@@ -60,7 +55,7 @@ const mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     totalUsers: state.usersPage.totalUsers,
     countUserOnPage: state.usersPage.countUserOnPage,
-    isFetching: state.common.isFetching
+    isFetching: state.common.isFetching,
   };
 };
 
@@ -93,16 +88,13 @@ const mapStateToProps = (state) => {
   };
 };*/
 
-const usersContainer = connect(
-  mapStateToProps,
-  {
-    follow,
-    unfollow,
-    setUsers,
-    setTotalUsers,
-    setCurrentPage,
-    toggleIsFetching
-  }
-)(UsersAPIComponent);
+const usersContainer = connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setTotalUsers,
+  setCurrentPage,
+  toggleIsFetching,
+})(UsersAPIComponent);
 
 export default usersContainer;

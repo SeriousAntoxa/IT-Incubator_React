@@ -2,19 +2,15 @@ import React from "react";
 import Profile from "./Profile";
 import { setUserProfile } from "../../redux/profile-reducer";
 import { connect } from "react-redux";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { profileAPI } from "../../api/api";
 
 class ProfileAPIComponent extends React.Component {
-
   componentDidMount() {
-    let userId = this.props.params.userId
-
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-      .then((response) => {
-        this.props.setUserProfile(response.data);
-      });
+    let userId = this.props.params.userId;
+    profileAPI.getUser(userId).then((response) => {
+      this.props.setUserProfile(response.data);
+    });
   }
   render() {
     return <Profile profile={this.props.profile} />;
@@ -27,10 +23,12 @@ let mapStateToProps = (state) => {
   };
 };
 
-const ProfileContainer = connect(mapStateToProps, { setUserProfile })(ProfileAPIComponent);
+const ProfileContainer = connect(mapStateToProps, { setUserProfile })(
+  ProfileAPIComponent
+);
 
 const ProfileContainerWithParams = () => {
-    const params = useParams();
-    return <ProfileContainer params={params} />;
+  const params = useParams();
+  return <ProfileContainer params={params} />;
 };
 export default ProfileContainerWithParams;
