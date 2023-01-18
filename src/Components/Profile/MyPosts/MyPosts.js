@@ -12,7 +12,7 @@ const MyPosts = (props) => {
     let value = e.target.value;
     props.updateTextPost(value);
   };
-
+ 
   const postsData = props.profilePage.posts.map((m,i) => (
     <Post key={i} message={m.message} like={m.likeCounter} />
   ));

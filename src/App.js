@@ -1,5 +1,5 @@
 import "./App.css";
-import Headers from "./Components/Header/Header";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 import Nav from "./Components/Nav/Nav";
 import ProfileContainerWithParams from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <div className="wrapper">
-      <Headers />
+      <HeaderContainer />
       <Nav />
       <main className="wrapper_content">
         <Routes>
