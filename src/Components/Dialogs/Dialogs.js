@@ -2,8 +2,10 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
+import { Navigate } from "react-router-dom";
 
 const Dialogs = (props) => {
+  if (!props.auth) return <Navigate to="/login" replace />;
 
   const dialogsData = props.dialogsPage.dialogs.map((d) => {
     return (
@@ -16,14 +18,14 @@ const Dialogs = (props) => {
   const messageData = props.dialogsPage.messages.map((m) => {
     return <Message state={m} />;
   });
-  
+
   const sendMessage = () => {
-    props.sendMessage()
+    props.sendMessage();
   };
 
   const updateTextMessage = (e) => {
-    let value = e.target.value
-    props.updateTextMessage(value)
+    let value = e.target.value;
+    props.updateTextMessage(value);
   };
 
   return (
@@ -32,9 +34,7 @@ const Dialogs = (props) => {
       <div className={s.block}>
         <ul className={s.dialogs}>{dialogsData}</ul>
         <div className={s.messages}>
-          <div className={s.messages_chat}>
-            {messageData}
-          </div>
+          <div className={s.messages_chat}>{messageData}</div>
           <div className={s.messages_form}>
             <p>Отправить сообщение</p>
             <textarea

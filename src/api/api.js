@@ -15,18 +15,14 @@ export const usersAPI = {
       .then((response) => response.data);
   },
   followUsers(userId) {
-    return instants
-    .post(`follow/${userId}`)
-    .then((response) => {
+    return instants.post(`follow/${userId}`).then((response) => {
       if (response.data.resultCode === 0) {
         return userId;
       }
     });
   },
   unfollowUsers(userId) {
-    return instants
-    .delete(`follow/${userId}`)
-    .then((response) => {
+    return instants.delete(`follow/${userId}`).then((response) => {
       if (response.data.resultCode === 0) {
         return userId;
       }
@@ -35,15 +31,19 @@ export const usersAPI = {
 };
 
 export const authAPI = {
-    auth() {
-      return instants
-        .get(`auth/me`)
-    },
+  auth() {
+    return instants.get(`auth/me`);
+  },
 };
 
 export const profileAPI = {
-    getUser(userId) {
-        return instants
-          .get(`profile/${userId}`)
-      },
-}
+  getUser(userId) {
+    return instants.get(`profile/${userId}`);
+  },
+  getStatus(userId) {
+    return instants.get(`profile/status/${userId}`);
+  },
+  updateStatus(status) {
+    return instants.put(`profile/status`, { status });
+  },
+};
