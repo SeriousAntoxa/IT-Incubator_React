@@ -1,15 +1,15 @@
-import s from "./Message.module.css";
+import s from "./Message.module.css"
 
 const Message = (props) => {
-  return (
-      <div
-        className={`${s.message} ${
-          !props.state.who ? s.myMessage : s.otherMessage
-        }`}
-      >
-        {props.state.message}
-      </div>
-  );
-};
+    return (
+        <div
+            className={`${s.message} ${
+                !props.state.who ? s.myMessage : s.otherMessage
+            }`}
+        >
+            {props.state.message}
+        </div>
+    )
+}
 
-export default Message;
+export default Message

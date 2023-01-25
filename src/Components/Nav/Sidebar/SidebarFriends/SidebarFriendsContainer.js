@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
-import SidebarFriends from './SidebarFriends'
+import { connect } from "react-redux"
+import SidebarFriends from "./SidebarFriends"
 
 let mapStateToProps = (state) => {
     return {
-        sidebar: state.sidebar
+        sidebar: state.sidebar,
     }
 }
 

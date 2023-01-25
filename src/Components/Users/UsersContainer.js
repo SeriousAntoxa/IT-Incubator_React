@@ -1,51 +1,51 @@
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 import {
-  follow,
-  unfollow,
-  toggleIsFollowing,
-  getUsers
-} from "./../../redux/users-reducer";
-import Users from "./Users";
-import React from "react";
+    follow,
+    unfollow,
+    toggleIsFollowing,
+    getUsers,
+} from "./../../redux/users-reducer"
+import Users from "./Users"
+import React from "react"
 
 class UsersAPIComponent extends React.Component {
-  componentDidMount() {
-    this.props.getUsers(this.props.countUserOnPage, this.props.currentPage)
-  }
+    componentDidMount() {
+        this.props.getUsers(this.props.countUserOnPage, this.props.currentPage)
+    }
 
-  onPageChange = (page) => {
-    this.props.getUsers(this.props.countUserOnPage, page)
-  };
+    onPageChange = (page) => {
+        this.props.getUsers(this.props.countUserOnPage, page)
+    }
 
-  render() {
-    return (
-      <Users
-        users={this.props.users}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-        totalUsers={this.props.totalUsers}
-        countUserOnPage={this.props.countUserOnPage}
-        currentPage={this.props.currentPage}
-        onPageChange={this.onPageChange}
-        isFetching={this.props.isFetching}
-        isFollowing={this.props.isFollowing}
-        toggleIsFollowing={this.props.toggleIsFollowing}
-        getUsers={this.props.getUsers}
-      />
-    );
-  }
+    render() {
+        return (
+            <Users
+                users={this.props.users}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                totalUsers={this.props.totalUsers}
+                countUserOnPage={this.props.countUserOnPage}
+                currentPage={this.props.currentPage}
+                onPageChange={this.onPageChange}
+                isFetching={this.props.isFetching}
+                isFollowing={this.props.isFollowing}
+                toggleIsFollowing={this.props.toggleIsFollowing}
+                getUsers={this.props.getUsers}
+            />
+        )
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-    currentPage: state.usersPage.currentPage,
-    totalUsers: state.usersPage.totalUsers,
-    countUserOnPage: state.usersPage.countUserOnPage,
-    isFetching: state.common.isFetching,
-    isFollowing: state.usersPage.isFollowing
-  };
-};
+    return {
+        users: state.usersPage.users,
+        currentPage: state.usersPage.currentPage,
+        totalUsers: state.usersPage.totalUsers,
+        countUserOnPage: state.usersPage.countUserOnPage,
+        isFetching: state.common.isFetching,
+        isFollowing: state.usersPage.isFollowing,
+    }
+}
 
 /*const mapDispatchToProps = (dispatch) => {
   return {
@@ -77,10 +77,10 @@ const mapStateToProps = (state) => {
 };*/
 
 const usersContainer = connect(mapStateToProps, {
-  follow,
-  unfollow,
-  toggleIsFollowing,
-  getUsers
-})(UsersAPIComponent);
+    follow,
+    unfollow,
+    toggleIsFollowing,
+    getUsers,
+})(UsersAPIComponent)
 
-export default usersContainer;
+export default usersContainer

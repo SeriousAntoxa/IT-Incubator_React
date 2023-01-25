@@ -2,7 +2,7 @@
     max-width: 100%;
     margin-right: 10px;
     grid-area: nav;
-    background-color: #33CDC7;
+    background-color: #33cdc7;
     border-radius: 10px 10px 0 0;
 }
 
@@ -22,12 +22,12 @@
     text-decoration: none;
 }
 
-.list_item a:hover{
-    color: #A64A00;
+.list_item a:hover {
+    color: #a64a00;
     text-shadow: 2px 1px 5px #92fffb;
 }
 
-.list_item a.active{
-    color: #A64A00;
+.list_item a.active {
+    color: #a64a00;
     text-shadow: 2px 1px 5px #92fffb;
 }
