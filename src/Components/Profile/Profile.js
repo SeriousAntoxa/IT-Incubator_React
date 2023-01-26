@@ -4,7 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import Preloader from "./../common/Preloader"
 
 const Profile = (props) => {
-    if (!props.profile && !props.status) {
+    if (!props.profile) {
         return <Preloader />
     }
 
