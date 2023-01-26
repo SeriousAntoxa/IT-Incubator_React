@@ -14,7 +14,7 @@ let initialState = {
     ],
     newPost: "",
     profile: null,
-    status: "don't status",
+    status: "no status",
 }
 
 const profileReducer = (state = initialState, action) => {
