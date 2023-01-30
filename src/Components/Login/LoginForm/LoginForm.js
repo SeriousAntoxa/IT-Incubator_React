@@ -24,8 +24,8 @@ let LoginForm = (props) => {
     )
 }
 
-let LoginReduxForm = reduxForm({
+let LoginFormRedux = reduxForm({
     form: "login",
 })(LoginForm)
 
-export default LoginReduxForm
+export default LoginFormRedux

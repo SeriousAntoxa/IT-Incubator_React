@@ -3,6 +3,7 @@ import s from "./Dialogs.module.css"
 import Message from "./Message/Message"
 import Dialog from "./Dialog/Dialog"
 import { Navigate } from "react-router-dom"
+import MessageFormReact from "./MessageForm/MessageForm"
 
 const Dialogs = (props) => {
     if (!props.auth) return <Navigate to="/login" replace />
@@ -20,12 +21,11 @@ const Dialogs = (props) => {
     })
 
     const sendMessage = () => {
-        props.sendMessage()
+        
     }
 
-    const updateTextMessage = (e) => {
-        let value = e.target.value
-        props.updateTextMessage(value)
+    const onSubmit = (formData) => {
+        props.sendMessage(formData.newMessage)
     }
 
     return (
@@ -36,15 +36,7 @@ const Dialogs = (props) => {
                 <div className={s.messages}>
                     <div className={s.messages_chat}>{messageData}</div>
                     <div className={s.messages_form}>
-                        <p>Отправить сообщение</p>
-                        <textarea
-                            onChange={updateTextMessage}
-                            className={s.form_textarea}
-                            value={props.dialogsPage.newMessage}
-                        />
-                        <button onClick={sendMessage} className={s.form_btn}>
-                            Submit
-                        </button>
+                        <MessageFormReact onSubmit={onSubmit} />
                     </div>
                 </div>
             </div>
