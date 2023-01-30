@@ -1,4 +1,4 @@
-import LoginReduxForm from "./LoginForm/LoginForm"
+import LoginFormRedux from "./LoginForm/LoginForm"
 
 let Login = (props) => {
     const onSubmit = (formData) => {
@@ -7,7 +7,7 @@ let Login = (props) => {
     return (
         <div>
             <h1>Login page</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginFormRedux onSubmit={onSubmit}/>
         </div>
     )
 }
