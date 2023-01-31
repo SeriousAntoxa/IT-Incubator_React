@@ -7,7 +7,7 @@ const MyPosts = (props) => {
     const onSubmit = (formData) => {
         props.addPost(formData.newPost)
     }
-    
+
     const postsData = props.profilePage.posts.map((m, i) => (
         <Post key={i} message={m.message} like={m.likeCounter} />
     ))
@@ -15,9 +15,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPost}>
             <p>My posts</p>
-            <div className={s.myPost_form}>
-                <MyPostFormRedux onSubmit={onSubmit} />
-            </div>
+            <MyPostFormRedux onSubmit={onSubmit} />
             <div>{postsData}</div>
         </div>
     )

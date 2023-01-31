@@ -20,10 +20,6 @@ const Dialogs = (props) => {
         return <Message state={m} />
     })
 
-    const sendMessage = () => {
-        
-    }
-
     const onSubmit = (formData) => {
         props.sendMessage(formData.newMessage)
     }
@@ -35,9 +31,7 @@ const Dialogs = (props) => {
                 <ul className={s.dialogs}>{dialogsData}</ul>
                 <div className={s.messages}>
                     <div className={s.messages_chat}>{messageData}</div>
-                    <div className={s.messages_form}>
-                        <MessageFormReact onSubmit={onSubmit} />
-                    </div>
+                    <MessageFormReact onSubmit={onSubmit} />
                 </div>
             </div>
         </div>
