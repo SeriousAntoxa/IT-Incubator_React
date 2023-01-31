@@ -18,9 +18,22 @@
     width: 100%;
 }
 
+.form_field {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.form_field label {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
 .form_textarea {
+    max-width: 100%;
     padding: 5px;
     font-size: 1.1rem;
+    border: 1px solid #000;
 }
 
 .form_btn {
