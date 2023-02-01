@@ -7,13 +7,13 @@ import { Navigate, useParams } from "react-router-dom"
 
 class ProfileAPIComponent extends React.Component {
     componentDidMount() {
-        let userId = !!this.props.params ? this.props.params.userId : 27202
+        let userId = !!this.props.params ? this.props.params.userId : this.props.userId
         this.props.getUser(userId)
         this.props.getStatus(userId)
     }
 
     render() {
-        if (!this.props.auth) return <Navigate to="/login" replace />
+        if (!this.props.params && !this.props.auth) return <Navigate to="/login" replace />
         return (
             <Profile
                 profile={this.props.profile}
@@ -28,6 +28,7 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         auth: state.auth.isAuth,
+        userId: state.auth.userId,
         status: state.profilePage.status,
     }
 }
@@ -38,9 +39,7 @@ export const ProfileContainer = connect(mapStateToProps, {
     updateStatus,
 })(ProfileAPIComponent)
 
-const ProfileContainerWithParams = () => {
+export const ProfileContainerWithParams = () => {
     const params = useParams()
     return <ProfileContainer params={params} />
 }
-
-export default ProfileContainerWithParams
