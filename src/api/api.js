@@ -34,6 +34,12 @@ export const authAPI = {
     auth() {
         return instants.get(`auth/me`)
     },
+    login(email, password, rememberMe) {
+        return instants.post(`auth/login`, {email, password, rememberMe})
+    },
+    logout() {
+        return instants.delete(`auth/login`)
+    },
 }
 
 export const profileAPI = {
