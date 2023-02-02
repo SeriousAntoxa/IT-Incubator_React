@@ -123,7 +123,7 @@ export let toggleIsFollowing = (isFetching, userId) => {
 }
 
 //ThunkCreator
-export const getUsers = (countUserOnPage, page) => {
+export const requestUsers = (countUserOnPage, page) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))

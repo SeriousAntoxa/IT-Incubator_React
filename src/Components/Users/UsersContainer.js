@@ -3,18 +3,29 @@ import {
     follow,
     unfollow,
     toggleIsFollowing,
-    getUsers,
+    requestUsers,
 } from "./../../redux/users-reducer"
+import {
+    getUsers,
+    getCurrentPage,
+    getTotalUsers,
+    getCountUserOnPage,
+    getIsFollowing,
+} from "./../../selectors/users-select"
+import { getIsFetching } from "./../../selectors/common-select"
 import Users from "./Users"
 import React from "react"
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.countUserOnPage, this.props.currentPage)
+        this.props.requestUsers(
+            this.props.countUserOnPage,
+            this.props.currentPage
+        )
     }
 
     onPageChange = (page) => {
-        this.props.getUsers(this.props.countUserOnPage, page)
+        this.props.requestUsers(this.props.countUserOnPage, page)
     }
 
     render() {
@@ -30,7 +41,7 @@ class UsersAPIComponent extends React.Component {
                 isFetching={this.props.isFetching}
                 isFollowing={this.props.isFollowing}
                 toggleIsFollowing={this.props.toggleIsFollowing}
-                getUsers={this.props.getUsers}
+                requestUsers={this.props.requestUsers}
             />
         )
     }
@@ -38,12 +49,12 @@ class UsersAPIComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        currentPage: state.usersPage.currentPage,
-        totalUsers: state.usersPage.totalUsers,
-        countUserOnPage: state.usersPage.countUserOnPage,
-        isFetching: state.common.isFetching,
-        isFollowing: state.usersPage.isFollowing,
+        users: getUsers(state),
+        currentPage: getCurrentPage(state),
+        totalUsers: getTotalUsers(state),
+        countUserOnPage: getCountUserOnPage(state),
+        isFetching: getIsFetching(state),
+        isFollowing: getIsFollowing(state),
     }
 }
 
@@ -80,7 +91,7 @@ const usersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
     toggleIsFollowing,
-    getUsers,
+    requestUsers,
 })(UsersAPIComponent)
 
 export default usersContainer

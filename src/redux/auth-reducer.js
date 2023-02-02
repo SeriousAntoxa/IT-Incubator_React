@@ -49,7 +49,7 @@ export let isAuthUser = (isAuth) => {
 export const getAuthUserData = () => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.auth().then((response) => {
+        return authAPI.auth().then((response) => {
             if (response.data.resultCode === 0) {
                 let { id, login, email } = response.data.data
                 dispatch(setAuthData(id, login, email))
