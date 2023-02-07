@@ -9,12 +9,15 @@
 .desc_logo {
     border: solid 2px;
     border-color: rgb(0, 0, 0);
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature
 }
 
 .desc_logo img {
-    width: 100%;
-    height: 100%;
+    width: 120px;
+    height: 120px;
 }
 
 .desc_data {

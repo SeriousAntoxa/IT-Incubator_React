@@ -1,6 +1,9 @@
 import {
   addPost,
+<<<<<<< HEAD
   updateTextPost,
+=======
+>>>>>>> feature
 } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
@@ -11,6 +14,7 @@ let mapStateToProps = (state) => {
   };
 };
 
+<<<<<<< HEAD
 /*let mapDispatchToProps = (dispatch) => {
   return {
     addPost: () => {
@@ -25,5 +29,8 @@ let mapStateToProps = (state) => {
 };*/
 
 const MyPostsContainer = connect(mapStateToProps, {addPost, updateTextPost})(MyPosts);
+=======
+const MyPostsContainer = connect(mapStateToProps, {addPost})(MyPosts);
+>>>>>>> feature
 
 export default MyPostsContainer;

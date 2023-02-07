@@ -1,0 +1,15 @@
+.form_control.error textarea,
+.form_control.error input {
+    border: 1px solid red;
+}
+
+.span {
+    color: red;
+}
+.form_error {
+    width: fit-content;
+    margin: 10px 0px;
+    padding: 10px;
+    color: red;
+    border: 1px solid red;
+}

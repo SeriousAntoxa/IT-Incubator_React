@@ -1,66 +1,61 @@
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 import {
-  follow,
-  unfollow,
-  setUsers,
-  setTotalUsers,
-  setCurrentPage,
-  toggleIsFollowing
-} from "./../../redux/users-reducer";
-import Users from "./Users";
-import React from "react";
-import { toggleIsFetching } from "../../redux/common-reducer";
-import { usersAPI } from "../../api/api";
+    follow,
+    unfollow,
+    toggleIsFollowing,
+    requestUsers,
+} from "./../../redux/users-reducer"
+import {
+    getUsers,
+    getCurrentPage,
+    getTotalUsers,
+    getCountUserOnPage,
+    getIsFollowing,
+} from "./../../selectors/users-select"
+import { getIsFetching } from "./../../selectors/common-select"
+import Users from "./Users"
+import React from "react"
 
 class UsersAPIComponent extends React.Component {
-  componentDidMount() {
-    this.props.toggleIsFetching(true);
+    componentDidMount() {
+        this.props.requestUsers(
+            this.props.countUserOnPage,
+            this.props.currentPage
+        )
+    }
 
-    usersAPI.getUsers(this.props.countUserOnPage).then((data) => {
-      this.props.setUsers(data.items);
-      this.props.setTotalUsers(data.totalCount);
-      this.props.toggleIsFetching(false);
-    });
-  }
+    onPageChange = (page) => {
+        this.props.requestUsers(this.props.countUserOnPage, page)
+    }
 
-  onPageChange = (p) => {
-    this.props.toggleIsFetching(true);
-    this.props.setCurrentPage(p);
-
-    usersAPI.getUsers(this.props.countUserOnPage, p).then((data) => {
-        this.props.setUsers(data.items);
-        this.props.setTotalUsers(data.totalCount);
-        this.props.toggleIsFetching(false);
-      });
-  };
-
-  render() {
-    return (
-      <Users
-        users={this.props.users}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-        totalUsers={this.props.totalUsers}
-        countUserOnPage={this.props.countUserOnPage}
-        currentPage={this.props.currentPage}
-        onPageChange={this.onPageChange}
-        isFetching={this.props.isFetching}
-        isFollowing={this.props.isFollowing}
-        toggleIsFollowing={this.props.toggleIsFollowing}
-      />
-    );
-  }
+    render() {
+        return (
+            <Users
+                users={this.props.users}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                totalUsers={this.props.totalUsers}
+                countUserOnPage={this.props.countUserOnPage}
+                currentPage={this.props.currentPage}
+                onPageChange={this.onPageChange}
+                isFetching={this.props.isFetching}
+                isFollowing={this.props.isFollowing}
+                toggleIsFollowing={this.props.toggleIsFollowing}
+                requestUsers={this.props.requestUsers}
+            />
+        )
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-    currentPage: state.usersPage.currentPage,
-    totalUsers: state.usersPage.totalUsers,
-    countUserOnPage: state.usersPage.countUserOnPage,
-    isFetching: state.common.isFetching,
-    isFollowing: state.usersPage.isFollowing
-  };
+    return {
+        users: getUsers(state),
+        currentPage: getCurrentPage(state),
+        totalUsers: getTotalUsers(state),
+        countUserOnPage: getCountUserOnPage(state),
+        isFetching: getIsFetching(state),
+        isFollowing: getIsFollowing(state),
+    }
 };
 
 /*const mapDispatchToProps = (dispatch) => {
@@ -93,13 +88,10 @@ const mapStateToProps = (state) => {
 };*/
 
 const usersContainer = connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setUsers,
-  setTotalUsers,
-  setCurrentPage,
-  toggleIsFetching,
-  toggleIsFollowing,
-})(UsersAPIComponent);
+    follow,
+    unfollow,
+    toggleIsFollowing,
+    requestUsers,
+})(UsersAPIComponent)
 
-export default usersContainer;
+export default usersContainer
