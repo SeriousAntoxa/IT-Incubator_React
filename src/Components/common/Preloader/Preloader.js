@@ -1,5 +1,5 @@
 import s from "./Preloader.module.css"
-import preloader from "./../../assets/image/preloader.gif"
+import preloader from "./../../../assets/image/preloader.gif"
 
 let Preloader = () => {
     return (

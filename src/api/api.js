@@ -10,23 +10,13 @@ const instants = axios.create({
 
 export const usersAPI = {
     getUsers(countUserOnPage, page) {
-        return instants
-            .get(`users?page=${page}&count=${countUserOnPage}`)
-            .then((response) => response.data)
+        return instants.get(`users?page=${page}&count=${countUserOnPage}`)
     },
     followUsers(userId) {
-        return instants.post(`follow/${userId}`).then((response) => {
-            if (response.data.resultCode === 0) {
-                return userId
-            }
-        })
+        return instants.post(`follow/${userId}`)
     },
     unfollowUsers(userId) {
-        return instants.delete(`follow/${userId}`).then((response) => {
-            if (response.data.resultCode === 0) {
-                return userId
-            }
-        })
+        return instants.delete(`follow/${userId}`)
     },
 }
 
@@ -35,10 +25,13 @@ export const authAPI = {
         return instants.get(`auth/me`)
     },
     login(email, password, rememberMe) {
-        return instants.post(`auth/login`, {email, password, rememberMe})
+        return instants.post(`auth/login`, { email, password, rememberMe })
     },
     logout() {
         return instants.delete(`auth/login`)
+    },
+    captcha() {
+        return instants.get(`security/get-captcha-url`)
     },
 }
 

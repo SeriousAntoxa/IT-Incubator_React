@@ -1,4 +1,4 @@
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
+const TOGGLE_IS_FETCHING = "socialNetwork/common/TOGGLE-IS-FETCHING"
 
 export let toggleIsFetching = (isFetching) => {
     return {

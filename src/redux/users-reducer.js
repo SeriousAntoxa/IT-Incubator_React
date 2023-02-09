@@ -1,12 +1,12 @@
 import { toggleIsFetching } from "./common-reducer"
 import { usersAPI } from "./../api/api"
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_TOTAL_USERS = "SET-TOTAL-USERS"
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
-const TOGGLE_IS_FOLLOWING = "TOGGLE-IS-FOLLOWING"
+const FOLLOW = "socialNetwork/users/FOLLOW"
+const UNFOLLOW = "socialNetwork/users/UNFOLLOW"
+const SET_USERS = "socialNetwork/users/SET-USERS"
+const SET_TOTAL_USERS = "socialNetwork/users/SET-TOTAL-USERS"
+const SET_CURRENT_PAGE = "socialNetwork/users/SET-CURRENT-PAGE"
+const TOGGLE_IS_FOLLOWING = "socialNetwork/users/TOGGLE-IS-FOLLOWING"
 
 let initialState = {
     users: [],
@@ -124,34 +124,38 @@ export let toggleIsFollowing = (isFetching, userId) => {
 
 //ThunkCreator
 export const requestUsers = (countUserOnPage, page) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-
-        usersAPI.getUsers(countUserOnPage, page).then((data) => {
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsers(data.totalCount))
-            dispatch(toggleIsFetching(false))
-        })
+        let response = await usersAPI.getUsers(countUserOnPage, page)
+        dispatch(setUsers(response.data.items))
+        dispatch(setTotalUsers(response.data.totalCount))
+        dispatch(toggleIsFetching(false))
     }
 }
 
 export const follow = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFollowing(true, userId))
-        usersAPI.followUsers(userId).then((userId) => {
+        let response = await usersAPI.followUsers(userId)
+
+        if (response.data.resultCode === 0) {
             dispatch(setFollow(userId))
-            dispatch(toggleIsFollowing(false, userId))
-        })
+        }
+
+        dispatch(toggleIsFollowing(false, userId))
     }
 }
 
 export const unfollow = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFollowing(true, userId))
-        usersAPI.unfollowUsers(userId).then((userId) => {
+        let response = await usersAPI.unfollowUsers(userId)
+
+        if (response.data.resultCode === 0) {
             dispatch(setUnfollow(userId))
-            dispatch(toggleIsFollowing(false, userId))
-        })
+        }
+
+        dispatch(toggleIsFollowing(false, userId))
     }
 }

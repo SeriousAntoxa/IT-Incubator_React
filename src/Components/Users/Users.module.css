@@ -1,11 +1,17 @@
-.block {
+.users {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.paginator_block {
+    width: 100%;
+}
+
+.users_block {
+    width: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-}
-
-.activeLink {
-    font-weight: 600;
 }

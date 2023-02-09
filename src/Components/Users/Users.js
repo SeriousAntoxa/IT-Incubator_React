@@ -1,38 +1,25 @@
 import s from "./Users.module.css"
 import User from "./User/User"
 import React from "react"
-import Preloader from "../common/Preloader"
+import Preloader from "../common/Preloader/Preloader"
+import Paginator from "../common/Paginator/Paginator"
 
 let Users = (props) => {
-    let totalPages = Math.ceil(props.totalUsers / props.countUserOnPage)
-    let pages = []
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i)
-    }
-
     return (
-        <div>
+        <div className={s.users}>
             <>{props.isFetching ? <Preloader /> : null}</>
-
             <h1>Users</h1>
-            <div>
+            <div className={s.paginator_block}>
                 <p>Pages: </p>
-                {pages.map((p) => {
-                    return (
-                        <span
-                            key={p}
-                            className={
-                                props.currentPage === p ? s.activeLink : " "
-                            }
-                            onClick={() => props.onPageChange(p)}
-                        >
-                            {p}{" "}
-                        </span>
-                    )
-                })}
+                <Paginator
+                    totalUsers={props.totalUsers}
+                    countUserOnPage={props.countUserOnPage}
+                    currentPage={props.currentPage}
+                    onPageChange={props.onPageChange}
+                />
             </div>
 
-            <div className={s.block}>
+            <div className={s.users_block}>
                 {props.users.map((u) => {
                     return (
                         <User

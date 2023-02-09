@@ -1,8 +1,8 @@
 import { profileAPI } from "./../api/api"
 
-const ADD_POST = "ADD-POST"
-const SET_USER_PROFILE = "SET-USER-PROFILE"
-const SET_USER_STATUS = "SET-USER-STATUS"
+const ADD_POST = "socialNetwork/profile/ADD-POST"
+const SET_USER_PROFILE = "socialNetwork/profile/SET-USER-PROFILE"
+const SET_USER_STATUS = "socialNetwork/profile/SET-USER-STATUS"
 
 let initialState = {
     posts: [
@@ -66,24 +66,22 @@ export let setUserStatus = (status) => ({
 //ThunkCreator
 export const getUser = (userId) => {
     //redux-thunk -->
-    return (dispatch) => {
-        profileAPI.getUser(userId).then((response) => {
-            dispatch(setUserProfile(response.data))
-        })
+    return async (dispatch) => {
+        let response = await profileAPI.getUser(userId)
+        dispatch(setUserProfile(response.data))
     }
 }
 
 export const getStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId).then((response) => {
-            dispatch(setUserStatus(response.data))
-        })
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(userId)
+        dispatch(setUserStatus(response.data))
     }
 }
 
 export const updateStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
+    return async (dispatch) => {
+        await profileAPI.updateStatus(status)
         dispatch(setUserStatus(status))
     }
 }
