@@ -3,14 +3,15 @@ import {
     follow,
     unfollow,
     toggleIsFollowing,
-    requestUsers,
+    requestUsers
 } from "./../../redux/users-reducer"
 import {
     getUsers,
     getCurrentPage,
-    getTotalUsers,
-    getCountUserOnPage,
+    getTotalItemsCount,
+    getCountItemsPerPage,
     getIsFollowing,
+    getPortionSize
 } from "./../../selectors/users-select"
 import { getIsFetching } from "./../../selectors/common-select"
 import Users from "./Users"
@@ -19,13 +20,17 @@ import React from "react"
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
         this.props.requestUsers(
-            this.props.countUserOnPage,
+            this.props.countItemsPerPage,
             this.props.currentPage
         )
     }
 
     onPageChange = (page) => {
-        this.props.requestUsers(this.props.countUserOnPage, page)
+        this.props.requestUsers(this.props.countItemsPerPage, page)
+    }
+
+    onPerPage = (count) => {
+        this.props.requestUsers(count, this.props.currentPage)
     }
 
     render() {
@@ -34,14 +39,16 @@ class UsersAPIComponent extends React.Component {
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-                totalUsers={this.props.totalUsers}
-                countUserOnPage={this.props.countUserOnPage}
+                totalItemsCount={this.props.totalItemsCount}
+                countItemsPerPage={this.props.countItemsPerPage}
                 currentPage={this.props.currentPage}
                 onPageChange={this.onPageChange}
                 isFetching={this.props.isFetching}
                 isFollowing={this.props.isFollowing}
                 toggleIsFollowing={this.props.toggleIsFollowing}
                 requestUsers={this.props.requestUsers}
+                onPerPage={this.onPerPage}
+                portionSize={this.portionSize}
             />
         )
     }
@@ -51,10 +58,11 @@ const mapStateToProps = (state) => {
     return {
         users: getUsers(state),
         currentPage: getCurrentPage(state),
-        totalUsers: getTotalUsers(state),
-        countUserOnPage: getCountUserOnPage(state),
+        totalItemsCount: getTotalItemsCount(state),
+        countItemsPerPage: getCountItemsPerPage(state),
         isFetching: getIsFetching(state),
         isFollowing: getIsFollowing(state),
+        portionSize: getPortionSize(state),
     }
 }
 
@@ -91,7 +99,7 @@ const usersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
     toggleIsFollowing,
-    requestUsers,
+    requestUsers
 })(UsersAPIComponent)
 
 export default usersContainer

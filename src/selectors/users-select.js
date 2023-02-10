@@ -6,14 +6,18 @@ export const getCurrentPage = (state) => {
     return state.usersPage.currentPage
 }
 
-export const getTotalUsers = (state) => {
-    return state.usersPage.totalUsers
+export const getTotalItemsCount = (state) => {
+    return state.usersPage.totalItemsCount
 }
 
-export const getCountUserOnPage = (state) => {
-    return state.usersPage.countUserOnPage
+export const getCountItemsPerPage = (state) => {
+    return state.usersPage.countItemsPerPage
 }
 
 export const getIsFollowing = (state) => {
     return state.usersPage.isFollowing
+}
+
+export const getPortionSize = (state) => {
+    return state.usersPage.portionSize
 }

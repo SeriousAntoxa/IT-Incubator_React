@@ -9,8 +9,8 @@ const instants = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(countUserOnPage, page) {
-        return instants.get(`users?page=${page}&count=${countUserOnPage}`)
+    getUsers(countItemsPerPage, page) {
+        return instants.get(`users?page=${page}&count=${countItemsPerPage}`)
     },
     followUsers(userId) {
         return instants.post(`follow/${userId}`)

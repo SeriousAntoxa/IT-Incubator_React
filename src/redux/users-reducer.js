@@ -4,16 +4,18 @@ import { usersAPI } from "./../api/api"
 const FOLLOW = "socialNetwork/users/FOLLOW"
 const UNFOLLOW = "socialNetwork/users/UNFOLLOW"
 const SET_USERS = "socialNetwork/users/SET-USERS"
-const SET_TOTAL_USERS = "socialNetwork/users/SET-TOTAL-USERS"
+const SET_TOTAL_ITEMS_COUNT = "socialNetwork/users/SET-TOTAL-ITEMS-COUNT"
 const SET_CURRENT_PAGE = "socialNetwork/users/SET-CURRENT-PAGE"
+const SET_COUNT_ITEMS_PER_PAGE = "socialNetwork/users/SET-COUNT-ITEMS-PER-PAGE"
 const TOGGLE_IS_FOLLOWING = "socialNetwork/users/TOGGLE-IS-FOLLOWING"
 
 let initialState = {
     users: [],
     currentPage: 1,
-    totalUsers: 0,
-    countUserOnPage: 100,
+    totalItemsCount: 0,
+    countItemsPerPage: 50,
     isFollowing: [],
+    portionSize: null,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -52,16 +54,22 @@ const usersReducer = (state = initialState, action) => {
                 users: [...action.users],
             }
         }
-        case SET_TOTAL_USERS: {
+        case SET_TOTAL_ITEMS_COUNT: {
             return {
                 ...state,
-                totalUsers: action.totalUsers,
+                totalItemsCount: action.totalItemsCount,
             }
         }
         case SET_CURRENT_PAGE: {
             return {
                 ...state,
                 currentPage: action.currentPage,
+            }
+        }
+        case SET_COUNT_ITEMS_PER_PAGE: {
+            return {
+                ...state,
+                countItemsPerPage: action.countItemsPerPage,
             }
         }
         case TOGGLE_IS_FOLLOWING: {
@@ -100,10 +108,10 @@ export let setUsers = (users) => {
     }
 }
 
-export let setTotalUsers = (totalUsers) => {
+export let setTotalItemsCount = (totalItemsCount) => {
     return {
-        type: SET_TOTAL_USERS,
-        totalUsers,
+        type: SET_TOTAL_ITEMS_COUNT,
+        totalItemsCount,
     }
 }
 
@@ -111,6 +119,13 @@ export let setCurrentPage = (currentPage) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage,
+    }
+}
+
+export let setCountItemsPerPage = (countItemsPerPage) => {
+    return {
+        type: SET_COUNT_ITEMS_PER_PAGE,
+        countItemsPerPage,
     }
 }
 
@@ -123,13 +138,14 @@ export let toggleIsFollowing = (isFetching, userId) => {
 }
 
 //ThunkCreator
-export const requestUsers = (countUserOnPage, page) => {
+export const requestUsers = (countItemsPerPage, page) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        let response = await usersAPI.getUsers(countUserOnPage, page)
+        dispatch(setCountItemsPerPage(countItemsPerPage))
+        let response = await usersAPI.getUsers(countItemsPerPage, page)
         dispatch(setUsers(response.data.items))
-        dispatch(setTotalUsers(response.data.totalCount))
+        dispatch(setTotalItemsCount(response.data.totalCount))
         dispatch(toggleIsFetching(false))
     }
 }
