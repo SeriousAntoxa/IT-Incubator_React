@@ -3,6 +3,7 @@ import { profileAPI } from "./../api/api"
 const ADD_POST = "socialNetwork/profile/ADD-POST"
 const SET_USER_PROFILE = "socialNetwork/profile/SET-USER-PROFILE"
 const SET_USER_STATUS = "socialNetwork/profile/SET-USER-STATUS"
+const SAVE_PHOTO_SUCCESS = "socialNetwork/profile/SAVE-PHOTO-SUCCESS"
 
 let initialState = {
     posts: [
@@ -44,6 +45,13 @@ const profileReducer = (state = initialState, action) => {
             }
         }
 
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: { ...state.profile, photos: action.photos },
+            }
+        }
+
         default:
             return { ...state }
     }
@@ -61,6 +69,11 @@ export let setUserProfile = (profile) => ({
 export let setUserStatus = (status) => ({
     type: SET_USER_STATUS,
     status,
+})
+
+export let savePhotoSuccess = (photos) => ({
+    type: SAVE_PHOTO_SUCCESS,
+    photos,
 })
 
 //ThunkCreator
@@ -83,5 +96,14 @@ export const updateStatus = (status) => {
     return async (dispatch) => {
         await profileAPI.updateStatus(status)
         dispatch(setUserStatus(status))
+    }
+}
+
+export const savePhoto = (file) => {
+    return async (dispatch) => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
     }
 }

@@ -12,9 +12,11 @@ const Profile = (props) => {
         <div className={s.profile}>
             <div className={s.profile_ProfileInfo}>
                 <ProfileInfo
+                    isOwner={props.isOwner}
                     profile={props.profile}
                     status={props.status}
                     updateStatus={props.updateStatus}
+                    savePhoto={props.savePhoto}
                 />
             </div>
             <div className={s.profile_MyPosts}>
