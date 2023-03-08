@@ -18,7 +18,7 @@ const ProfileStatus = (props) => {
     const enableEditMode = () => {
         setEditMode(true)
     }
-    
+
     const onStatusChange = (e) => {
         setStatus(e.currentTarget.value)
     }
@@ -30,6 +30,7 @@ const ProfileStatus = (props) => {
 
     return (
         <div>
+            <p>My status: </p>
             {!editMode && (
                 <div>
                     <span onDoubleClick={enableEditMode}>

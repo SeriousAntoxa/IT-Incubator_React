@@ -55,4 +55,7 @@ export const profileAPI = {
             },
         })
     },
+    saveProfile(profile) {
+        return instants.put(`profile`, profile)       
+    },
 }
