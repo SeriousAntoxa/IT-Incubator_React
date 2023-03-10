@@ -1,4 +1,5 @@
 import { profileAPI } from "./../api/api"
+import { stopSubmit } from "redux-form"
 
 const ADD_POST = "socialNetwork/profile/ADD-POST"
 const SET_USER_PROFILE = "socialNetwork/profile/SET-USER-PROFILE"
@@ -109,10 +110,27 @@ export const savePhoto = (file) => {
 }
 
 export const saveProfile = (profile) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
+        let userId = getState().auth.userId
         let response = await profileAPI.saveProfile(profile)
         if (response.data.resultCode === 0) {
-
+            dispatch(getUser(userId))
+        } else {
+            let errors = {contacts: {}}
+            response.data.messages.forEach((e) => {
+                let endStr = e.indexOf("(")
+                if (e.includes("Instagram")) {
+                    errors.contacts.instagram = e.slice(0, endStr)
+                }
+                if (e.includes("Github")) {
+                    errors.contacts.gitHub = e.slice(0, endStr)
+                }
+                if (e.includes("Website")) {
+                    errors.contacts.webSite = e.slice(0, endStr)
+                }
+            })
+            dispatch(stopSubmit("profileData", errors))
+            return Promise.reject(errors)
         }
     }
 }

@@ -1,5 +1,5 @@
 import s from "./Description.module.css"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import userLogo from "./../../../../assets/image/user.png"
 import ProfileStatus from "./../ProfileStatus/ProfileStatus"
 import { reduxForm, Field } from "redux-form"
@@ -8,18 +8,14 @@ import { requiredField } from "../../../../utils/validators/validators"
 
 const Description = (props) => {
     const [editMode, setEditMode] = useState(false)
-    const [profile, setProfile] = useState(props.profile)
+    const profile = props.profile
     const onSelectMainPhoto = (e) => {
         if (e.target.files[0].length !== 0) {
             props.savePhoto(e.target.files[0])
         }
     }
 
-    useEffect(() => {
-        setProfile(props.profile)
-    }, [props.profile])
-
-    const onSubmit = (formData) => {
+    const onSubmit = async (formData) => {
         let form = {
             userId: profile.userId,
             lookingForAJob: formData.lookingForAJob || profile.lookingForAJob,
@@ -29,20 +25,26 @@ const Description = (props) => {
             aboutMe: formData.aboutMe || profile.aboutMe,
             fullName: formData.fullName || profile.fullName,
             contacts: {
-                github: formData.gitHub || profile.contacts.gitHub || null,
+                github:
+                    formData.contacts.gitHub || profile.contacts.gitHub || null,
                 vk: null,
                 facebook: null,
                 instagram:
-                    formData.instagram || profile.contacts.instagram || null,
+                    formData.contacts.instagram ||
+                    profile.contacts.instagram ||
+                    null,
                 twitter: null,
-                website: formData.webSite || profile.contacts.instagram || null,
+                website:
+                    formData.contacts.webSite ||
+                    profile.contacts.webSite ||
+                    null,
                 youtube: null,
                 mainLink: null,
             },
         }
-        setEditMode(false)
-        debugger
-        props.saveProfile(form)
+        props.saveProfile(form).then(() => {
+            setEditMode(false)
+        })
     }
 
     return (
@@ -71,6 +73,7 @@ const Description = (props) => {
                     disableEditMode={() => {
                         setEditMode(false)
                     }}
+                    initialValues={profile}
                 />
             ) : (
                 <ProfileData
@@ -112,15 +115,34 @@ const ProfileData = ({
                     <b>About me: </b> {profile.aboutMe || " - "}
                 </div>
                 <div>
-                    <b>Instagram: {profile.contacts.instagram || " - "}</b>
+                    <b>Instagram: </b>{" "}
+                    {profile.contacts.instagram ? (
+                        <a href={profile.contacts.instagram}>
+                            {profile.contacts.instagram}
+                        </a>
+                    ) : (
+                        " - "
+                    )}
                 </div>
                 <div>
                     <b>Github: </b>
-                    {profile.contacts.github || " - "}
+                    {profile.contacts.github ? (
+                        <a href={profile.contacts.github}>
+                            {profile.contacts.github}
+                        </a>
+                    ) : (
+                        " - "
+                    )}
                 </div>
                 <div>
                     <b>Website: </b>
-                    {profile.contacts.website || " - "}
+                    {profile.contacts.website ? (
+                        <a href={profile.contacts.website}>
+                            {profile.contacts.website}
+                        </a>
+                    ) : (
+                        " - "
+                    )}
                 </div>
                 <div>
                     <b>Job: </b>
@@ -136,10 +158,16 @@ const ProfileData = ({
     )
 }
 
-const ProfileDataForm = ({ handleSubmit, status, updateStatus, disableEditMode }) => {
+const ProfileDataForm = ({
+    profile,
+    handleSubmit,
+    status,
+    updateStatus,
+    disableEditMode,
+    error,
+}) => {
     return (
         <form className={s.desc_data} onSubmit={handleSubmit}>
-            
             <div className={s.desc_name}>
                 <label htmlFor="fullName">Full name: </label>
                 <Field
@@ -172,15 +200,27 @@ const ProfileDataForm = ({ handleSubmit, status, updateStatus, disableEditMode }
                 </div>
                 <div>
                     <label htmlFor="instagram">Instagram: </label>
-                    <Field name="instagram" component={Input} type="text" />
+                    <Field
+                        name="contacts.instagram"
+                        component={Input}
+                        type="text"
+                    />
                 </div>
                 <div>
-                    <label htmlFor="gitHub">Github: </label>
-                    <Field name="gitHub" component={Input} type="text" />
+                    <label htmlFor="contacts.gitHub">Github: </label>
+                    <Field
+                        name="contacts.gitHub"
+                        component={Input}
+                        type="text"
+                    />
                 </div>
                 <div>
                     <label htmlFor="webSite">Website: </label>
-                    <Field name="webSite" component={Input} type="text" />
+                    <Field
+                        name="contacts.webSite"
+                        component={Input}
+                        type="text"
+                    />
                 </div>
                 <div>
                     <label htmlFor="lookingForAJobDescription">
@@ -203,9 +243,9 @@ const ProfileDataForm = ({ handleSubmit, status, updateStatus, disableEditMode }
 }
 
 let ProfileDataFormRedux = reduxForm({
-    form: "profileData"
+    form: "profileData",
+    enableReinitialize: true,
+    destroyOnUnmount: false,
 })(ProfileDataForm)
-
-
 
 export default Description

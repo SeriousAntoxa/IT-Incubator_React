@@ -6,9 +6,10 @@ import Paginator from "../common/Paginator/Paginator"
 import PerPage from "../common/PerPage/PerPage"
 
 let Users = (props) => {
+    <>{props.isFetching || <Preloader />}</>
+    
     return (
         <div className={s.users}>
-            <>{props.isFetching ? <Preloader /> : null}</>
             <h1>Users</h1>
             <div className={s.paginator_block}>
                 <div>

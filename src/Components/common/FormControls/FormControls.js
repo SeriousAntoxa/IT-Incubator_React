@@ -7,7 +7,7 @@ const FieldCreator = ({ input, meta, TypeField, ...props }) => {
             <div>
                 <TypeField {...input} {...props}></TypeField>
             </div>
-            {hasError ? <span className={s.span}>{meta.error}</span> : <></>}
+            {hasError && <span className={s.span}>{meta.error}</span>}
         </div>
     )
 }
