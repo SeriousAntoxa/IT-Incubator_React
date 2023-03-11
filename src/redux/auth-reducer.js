@@ -4,12 +4,14 @@ import { stopSubmit } from "redux-form"
 
 const SET_AUTH_DATA = "socialNetwork/auth/SET-AUTH-DATA"
 const IS_AUTH_USER = "socialNetwork/auth/IS-AUTH-USER"
+const GET_CAPTCHA_URL = "socialNetwork/auth/GET-CAPTCHA-URL"
 
 let initialState = {
     userId: null,
     login: null,
     email: null,
     isAuth: false,
+    captchaUrl: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -24,6 +26,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuth: action.isAuth,
             }
+        case GET_CAPTCHA_URL:
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl,
+            }
         default: {
             return { ...state }
         }
@@ -36,6 +43,13 @@ export let setAuthData = (userId, login, email) => {
     return {
         type: SET_AUTH_DATA,
         data: { userId, login, email },
+    }
+}
+
+export let setCaptchaUrl = (captchaUrl) => {
+    return {
+        type: GET_CAPTCHA_URL,
+        captchaUrl,
     }
 }
 
@@ -61,18 +75,26 @@ export const getAuthUserData = () => {
     }
 }
 
-export const login = (email, password, rememberMe) => {
+export const getCaptchaUrl = () => {
+    return async (dispatch) => {
+        let response = await authAPI.getCaptchaUrl()
+        dispatch(setCaptchaUrl(response.data.url))
+    }
+}
+
+export const login = (email, password, rememberMe, captcha) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        let response = await authAPI.login(email, password, rememberMe)
+        let response = await authAPI.login(email, password, rememberMe, captcha)
 
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserData())
-        } else if (response.data.resultCode === 10) {
-            authAPI.captcha().then((response) => {
-                console.log(response.data.url)
-            })
+            dispatch(setCaptchaUrl(null))
         } else {
+            if (response.data.resultCode === 10) {
+                dispatch(getCaptchaUrl())
+            }
+
             let errorMessage =
                 response.data.messages.length > 0
                     ? response.data.messages
